@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">DompetQ</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_welcome">DompetQ</string>
+
+    <string-array name="dropdown">
+        <item>Tabung</item>
+        <item>Makan</item>
+        <item>Belanja</item>
+        <item>Lainnya</item>
+    </string-array>
+</resources>
