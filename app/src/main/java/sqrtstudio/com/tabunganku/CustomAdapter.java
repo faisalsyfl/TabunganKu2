@@ -22,14 +22,14 @@ import java.util.Locale;
 
 public class CustomAdapter extends ArrayAdapter<DbTabungan.Tabungan> {
     public CustomAdapter(Context context, ArrayList<DbTabungan.Tabungan> tab) {
-        super(context,R.layout.custom_row, tab);
+        super(context,R.layout.custom_row2, tab);
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater mineInflater = LayoutInflater.from(getContext());
-        View customView = mineInflater.inflate(R.layout.custom_row,parent,false);
+        View customView = mineInflater.inflate(R.layout.custom_row2,parent,false);
 
         DbTabungan.Tabungan singleName = getItem(position);
 //        Log.d("test",singleName.category.toString());
@@ -37,17 +37,15 @@ public class CustomAdapter extends ArrayAdapter<DbTabungan.Tabungan> {
         TextView desc = (TextView) customView.findViewById(R.id.textDesc);
         TextView price = (TextView) customView.findViewById(R.id.textPrice);
         ImageView rowImage = (ImageView) customView.findViewById(R.id.imageView);
-
+        TextView tgl = (TextView) customView.findViewById(R.id.textTgl);
+//        Log.d("tgl:",singleName.getTgl().toString());
+        tgl.setText(singleName.getTgl().toString());
         desc.setText(singleName.getDesc().toString());
         price.setText(formatRP(String.valueOf(singleName.getSpent())));
-        if(singleName.getCategory().toString().equals("Makan")){
-            rowImage.setImageResource(R.drawable.makan);
-        }else if(singleName.getCategory().toString().equals("Belanja")){
-            rowImage.setImageResource(R.drawable.belaja);
-        }else if(singleName.getCategory().toString().equals("Tabung")){
-            rowImage.setImageResource(R.drawable.nabung);
+        if(singleName.getCategory().toString().equals("Income")){
+            rowImage.setImageResource(R.drawable.income);
         }else{
-            rowImage.setImageResource(R.drawable.other);
+            rowImage.setImageResource(R.drawable.outcome);
         }
 
         return customView;

@@ -9,7 +9,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.security.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +25,7 @@ public class DbTabungan{
         public String category;
         public int spent;
         public String desc;
+        public String tgl;
 
         public void setId(int id){
             this.id = id;
@@ -48,6 +51,8 @@ public class DbTabungan{
         public String getDesc(){
             return this.desc;
         }
+        public void setTgl(String t){this.tgl = t;}
+        public String getTgl(){ return this.tgl;}
     }
 
     private SQLiteDatabase db;
@@ -65,11 +70,12 @@ public class DbTabungan{
         db.close();
     }
 
-    public long insertNew(String cat,int spent, String desc){
+    public long insertNew(String cat,int spent, String desc, String tgl){
         ContentValues newValue = new ContentValues();
         newValue.put("CATEGORY",cat);
         newValue.put("SPENT",spent);
         newValue.put("DESC",desc);
+        newValue.put("TGL",tgl);
         return db.insert("TABUNGAN",null,newValue);
     }
 
@@ -87,6 +93,8 @@ public class DbTabungan{
                 data.setCategory(cursor.getString(1));
                 data.setSpent(Integer.parseInt(cursor.getString(2)));
                 data.setDesc(cursor.getString(3));
+                Log.d("cursor",cursor.getString(3)+" -- "+ cursor.getString(4));
+                data.setTgl(cursor.getString(4));
                 tabList.add(data);
             } while (cursor.moveToNext());
         }
@@ -95,7 +103,7 @@ public class DbTabungan{
     public Tabungan getTabungan(String id){
         Cursor cur = null;
         Tabungan T = new Tabungan();
-        String[] cols = new String[]{"ID", "CATEGORY", "SPENT", "DESC"};
+        String[] cols = new String[]{"ID", "CATEGORY", "SPENT", "DESC","TGL"};
 
         String[] param = {id};
         cur = db.query("TABUNGAN",cols,"ID=?",param,null,null,null);
@@ -106,6 +114,7 @@ public class DbTabungan{
             T.category = cur.getString(1);
             T.spent = Integer.parseInt(cur.getString(2));
             T.desc = cur.getString(3);
+            T.tgl = cur.getString(4);
         }
 
         return T;
@@ -114,7 +123,7 @@ public class DbTabungan{
     public int getID(String nama){
         Cursor cur = null;
         Tabungan T = new Tabungan();
-        String[] cols = new String[]{"ID", "CATEGORY", "SPENT", "DESC"};
+        String[] cols = new String[]{"ID", "CATEGORY", "SPENT", "DESC","TGL"};
 
         String[] param = {};
         cur = db.query("TABUNGAN",cols,"ID=?",param,null,null,null);
@@ -124,12 +133,10 @@ public class DbTabungan{
             T.id = Integer.parseInt(cur.getString(0));
 
         }
-
         return T.id;
     }
     public void removeAll()
     {
-
         db.delete("Tabungan", null, null);
 //        db.delete(DatabaseHelper.TAB_USERS_GROUP, null, null);
     }
@@ -139,6 +146,8 @@ public class DbTabungan{
         values.put("CATEGORY", tab.getCategory());
         values.put("SPENT", tab.getSpent());
         values.put("DESC", tab.getDesc());
+        values.put("TGL", tab.getTgl());
+        Log.d("update:",tab.getTgl());
         return db.update("TABUNGAN", values, "ID" + " = ?",
                 new String[]{String.valueOf(tab.getId())});
     }

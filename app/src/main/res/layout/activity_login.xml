@@ -15,7 +15,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="150dp"
-        app:srcCompat="@drawable/other"
+        app:srcCompat="@drawable/income"
         android:id="@+id/imageView2"
         android:layout_marginTop="66dp"
         android:layout_alignParentTop="true"

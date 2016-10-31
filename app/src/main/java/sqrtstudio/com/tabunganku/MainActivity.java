@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         DbTabungan db = new DbTabungan(getApplicationContext());
         db.open();
-        db.removeAll();
+//        db.removeAll();
 
         ArrayList<DbTabungan.Tabungan> data = db.selectAll();
         final ListView tabList = (ListView) findViewById(R.id.list1);
@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         tabList.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-//                Integer pos = Integer.valueOf(String.valueOf(tabList.getItemAtPosition(position)));
                 clickList((DbTabungan.Tabungan)tabList.getItemAtPosition(position));
                 adapter.notifyDataSetChanged();
             }
@@ -77,12 +76,6 @@ public class MainActivity extends AppCompatActivity {
 //        Log.d("Budget:",sp.getString("budget","####"));
         tv.setText(formatRP(sp.getString("budget","#UNDEFINED")));
     }
-
-    //    public void makeArray(){
-//        for(int i = 0; i < adapter.getCount(); i++){
-//            items.add((DbTabungan.Tabungan) adapter.getItem(i));
-//        }
-//    }
 
     public void clickList(DbTabungan.Tabungan data){
         Log.d("data:",String.valueOf(data.spent));
@@ -135,9 +128,16 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == R.id.Laporan){
+
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void showReport(MenuItem menu){
+        Intent i = new Intent(this,ChartView.class);
+
+        startActivity(i);
     }
     public String formatRP(String angka){
         String angka_satu,angka_dua;

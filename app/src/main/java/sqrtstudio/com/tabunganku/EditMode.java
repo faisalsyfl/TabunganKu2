@@ -1,8 +1,15 @@
 package sqrtstudio.com.tabunganku;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.text.DateFormat;
+import android.icu.text.SimpleDateFormat;
 import android.opengl.EGLDisplay;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,14 +19,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class EditMode extends AppCompatActivity {
 
-//    private int idedit = 99;
+    private DatePicker datePicker;
+    private Calendar calendar;
+    private TextView dateView;
+    private int year, month, day;
 
+    //    private int idedit = 99;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,17 +49,57 @@ public class EditMode extends AppCompatActivity {
         Spinner sp = (Spinner) findViewById(R.id.dropdown);
         EditText pc = (EditText) findViewById(R.id.spent);
         EditText dc = (EditText) findViewById(R.id.desc);
+        EditText date = (EditText) findViewById(R.id.etdate);
+
+
+        /*CREATING DATE*/
+        SimpleDateFormat df = new SimpleDateFormat("MMM dd, YYYY");
+        date.setText(df.format(new Date()));
+
         Button btn= (Button) findViewById(R.id.btn);
 
 
         if(getIntent().getExtras() != null){
+            //JIKA EDIT
             Intent i = getIntent();
-//            idedit = i.getIntExtra(MainActivity.ID_MESSAGE,99);
             sp.setSelection(getIndex(sp,i.getStringExtra(MainActivity.CAT_MESSAGE)));
             pc.setText("0", TextView.BufferType.EDITABLE);
             dc.setText(i.getStringExtra(MainActivity.DESC_MESSAGE));
             btn.setText("EDIT");
         }
+    }
+
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.N)
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            Calendar c = Calendar.getInstance();
+            c.set(year,month,day);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, YYYY");
+            String formattedDate = sdf.format(c.getTime());
+
+            ((TextView) getActivity().findViewById(R.id.etdate)).setText(formattedDate);
+
+        }
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -108,8 +165,9 @@ public class EditMode extends AppCompatActivity {
 
 
         if(stats){
-            db.insertNew(dd.getSelectedItem().toString(),harga,((EditText)findViewById(R.id.desc)).getText().toString());
-            if(dd.getSelectedItem().toString().equals("Tabung")){
+//            Log.d("cek",((EditText)findViewById(R.id.etdate)).getText().toString());
+            db.insertNew(dd.getSelectedItem().toString(),harga,((EditText)findViewById(R.id.desc)).getText().toString(),((EditText)findViewById(R.id.etdate)).getText().toString());
+            if(dd.getSelectedItem().toString().equals("Income")){
                 SharedPreferences sp = getSharedPreferences("com.sqrtstudio.tabunganku",MODE_PRIVATE);
                 SharedPreferences.Editor ed = sp.edit();
                 String calc = String.valueOf(Integer.parseInt(sp.getString("budget","NULL")) + harga);
@@ -130,6 +188,7 @@ public class EditMode extends AppCompatActivity {
             newV.setCategory(dd.getSelectedItem().toString());
             newV.setSpent(harga);
             newV.setDesc(((EditText)findViewById(R.id.desc)).getText().toString());
+            newV.setTgl(((EditText)findViewById(R.id.etdate)).getText().toString());
             db.updateShop(newV);
             if(dd.getSelectedItem().toString().equals("Tabung")){
                 SharedPreferences sp = getSharedPreferences("com.sqrtstudio.tabunganku",MODE_PRIVATE);

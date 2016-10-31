@@ -11,51 +11,96 @@
     android:theme="@style/AppTheme.NoActionBar"
     tools:context="sqrtstudio.com.tabunganku.EditMode">
 
-    <android.support.v7.widget.Toolbar
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:theme="?attr/actionBarTheme"
-        android:minHeight="65dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/toolbar2" />
+        android:layout_height="match_parent"
+        android:weightSum="1">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/desc"
-        android:hint="Deskripsi"
-        android:layout_marginTop="19dp"
-        android:layout_below="@+id/dropdown"
-        android:layout_alignRight="@+id/textView5"
-        android:layout_alignEnd="@+id/textView5" />
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:theme="?attr/actionBarTheme"
+            android:minHeight="65dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/toolbar2" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/spent"
-        android:layout_marginTop="19dp"
-        android:hint="Harga"
-        android:layout_below="@+id/desc"
-        android:layout_alignLeft="@+id/desc"
-        android:layout_alignStart="@+id/desc" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dropdown"
+            android:entries="@array/dropdown"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/toolbar2"
+            android:layout_alignLeft="@+id/textView5"
+            android:layout_alignStart="@+id/textView5" />
 
-    <Button
-        android:text="ADD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="53dp"
-        android:id="@+id/btn"
-        android:layout_alignTop="@+id/spent"
-        android:layout_alignLeft="@+id/spent"
-        android:layout_alignStart="@+id/spent"
-        android:onClick="klikButton"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/etdate"
+                android:hint="Date"
+                android:layout_alignBottom="@+id/setdate"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:text="Set Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/setdate"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:onClick="showDatePickerDialog"/>
+
+        </RelativeLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/desc"
+            android:hint="Deskripsi"
+            android:layout_marginTop="19dp"
+            android:layout_below="@+id/dropdown"
+            android:layout_alignRight="@+id/textView5"
+            android:layout_alignEnd="@+id/textView5" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/spent"
+            android:layout_marginTop="19dp"
+            android:hint="Harga"
+            android:layout_below="@+id/desc"
+            android:layout_alignLeft="@+id/desc"
+            android:layout_alignStart="@+id/desc" />
+
+        <Button
+            android:text="ADD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="53dp"
+            android:id="@+id/btn"
+            android:layout_alignTop="@+id/spent"
+            android:layout_alignLeft="@+id/spent"
+            android:layout_alignStart="@+id/spent"
+            android:onClick="klikButton"/>
+
+    </LinearLayout>
 
     <TextView
         android:text="Tambah Pengeluaran"
@@ -65,21 +110,11 @@
         android:textStyle="normal|bold"
         android:textSize="24sp"
         android:textColor="@android:color/black"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/dropdown"
-        android:entries="@array/dropdown"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/toolbar2"
-        android:layout_alignLeft="@+id/textView5"
-        android:layout_alignStart="@+id/textView5" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

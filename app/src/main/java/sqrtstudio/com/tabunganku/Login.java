@@ -16,6 +16,7 @@ public class Login extends AppCompatActivity {
         if(!sp.getString("owner","EMPTY").equals("EMPTY")){
             Intent i = new Intent(this,MainActivity.class);
 //            ed.clear();
+//            ed.commit();
             startActivity(i);
         }
         setContentView(R.layout.activity_login);
