@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("com.sqrtstudio.tabunganku",MODE_PRIVATE);
         SharedPreferences.Editor ed = sp.edit();
         TextView tv = (TextView)findViewById(R.id.currentBudget);
-//        Log.d("Budget:",sp.getString("budget","####"));
         tv.setText(formatRP(sp.getString("budget","#UNDEFINED")));
     }
 
@@ -135,8 +134,23 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void showReport(MenuItem menu){
+        DbTabungan db = new DbTabungan(getApplicationContext());
+        db.open();
+        ArrayList<DbTabungan.Tabungan> data = db.selectCategory("Income");
+        float inc = 0;
+        for(int i=0;i<data.size();i++){
+//            Log.d("inc",String.valueOf(data.get(i).getSpent()));
+            inc += Float.valueOf(data.get(i).getSpent());
+        }
+        ArrayList<DbTabungan.Tabungan> dataO = db.selectCategory("Outcome");
+        float out = 0;
+        for(int i=0;i<dataO.size();i++){
+            out += Float.valueOf(dataO.get(i).getSpent());
+        }
+//        Log.d("first",inc+"--"+out);
         Intent i = new Intent(this,ChartView.class);
-
+        i.putExtra("income",inc);
+        i.putExtra("outcome",out);
         startActivity(i);
     }
     public String formatRP(String angka){

@@ -100,6 +100,26 @@ public class DbTabungan{
         }
         return tabList;
     }
+    public ArrayList<Tabungan> selectCategory(String i) {
+        ArrayList<Tabungan> tabList = new ArrayList<Tabungan>();
+        String selectQuery = "SELECT * FROM TABUNGAN WHERE CATEGORY = '"+i+"'";
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+
+                Tabungan data = new Tabungan();
+                data.setId(Integer.parseInt(cursor.getString(0)));
+                data.setCategory(cursor.getString(1));
+                data.setSpent(Integer.parseInt(cursor.getString(2)));
+                data.setDesc(cursor.getString(3));
+//                Log.d("cursor",cursor.getString(3)+" -- "+ cursor.getString(4));
+                data.setTgl(cursor.getString(4));
+                tabList.add(data);
+            } while (cursor.moveToNext());
+        }
+        return tabList;
+    }
     public Tabungan getTabungan(String id){
         Cursor cur = null;
         Tabungan T = new Tabungan();

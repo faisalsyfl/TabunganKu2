@@ -32,13 +32,11 @@ public class CustomAdapter extends ArrayAdapter<DbTabungan.Tabungan> {
         View customView = mineInflater.inflate(R.layout.custom_row2,parent,false);
 
         DbTabungan.Tabungan singleName = getItem(position);
-//        Log.d("test",singleName.category.toString());
 
         TextView desc = (TextView) customView.findViewById(R.id.textDesc);
         TextView price = (TextView) customView.findViewById(R.id.textPrice);
         ImageView rowImage = (ImageView) customView.findViewById(R.id.imageView);
         TextView tgl = (TextView) customView.findViewById(R.id.textTgl);
-//        Log.d("tgl:",singleName.getTgl().toString());
         tgl.setText(singleName.getTgl().toString());
         desc.setText(singleName.getDesc().toString());
         price.setText(formatRP(String.valueOf(singleName.getSpent())));

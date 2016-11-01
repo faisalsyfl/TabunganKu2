@@ -1,8 +1,10 @@
 package sqrtstudio.com.tabunganku;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -14,7 +16,9 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ChartView extends AppCompatActivity {
     PieChart chart;
@@ -37,7 +41,16 @@ public class ChartView extends AppCompatActivity {
 
         chart.setRotationEnabled(true);
         chart.setHighlightPerTapEnabled(true);
-        setData(4,100);
+        Intent i = getIntent();
+        if(getIntent().getExtras() == null){
+            Log.d("cek:","EMPTY");
+        }else{
+            Log.d("cek:",String.valueOf(i.getFloatExtra("income",0)));
+        }
+        float come = i.getFloatExtra("income",0);
+        float out = i.getFloatExtra("outcome",0);
+        setData(come,out);
+
         chart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
 
         Legend l = chart.getLegend();
@@ -50,19 +63,18 @@ public class ChartView extends AppCompatActivity {
         l.setYOffset(0f);
     }
 
-    private void setData(int count, float range) {
+    private void setData(float income, float outcome) {
 
-        float mult = range;
 
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
-        for (int i = 0; i < count ; i++) {
-            entries.add(new PieEntry((float) ((Math.random() * mult) + mult / 5), "FUCK"));
-        }
+        entries.add(new PieEntry((float) income, "Income"));
+        entries.add(new PieEntry((float) outcome, "Outcome"));
 
-        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
+
+        PieDataSet dataSet = new PieDataSet(entries, "SakuKu Graphics per-Week");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
 
@@ -101,5 +113,24 @@ public class ChartView extends AppCompatActivity {
         chart.highlightValues(null);
 
         chart.invalidate();
+    }
+
+    public String formatRP(String angka){
+        String angka_satu,angka_dua;
+        NumberFormat rupiahFormat;
+        String Rupiah = "Rp.";
+
+        if(angka.equals("")){
+            angka_satu = "0";
+        }else{
+            angka_satu = angka;
+        }
+
+        rupiahFormat = NumberFormat.getInstance(Locale.GERMANY);
+        String rupiah = rupiahFormat.format(Double.parseDouble(angka_satu));
+
+        String Result = Rupiah + " " + rupiah ;
+
+        return Result;
     }
 }
