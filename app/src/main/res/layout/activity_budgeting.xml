@@ -24,6 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
+        android:textColorHint="@color/colorAccent"
+        android:hint="0"
         android:ems="10"
         android:id="@+id/budgeting"
         android:textColor="@android:color/white" />

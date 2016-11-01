@@ -8,28 +8,27 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
     tools:context="sqrtstudio.com.tabunganku.Setting"
     android:orientation="vertical">
 
-    <TextView
-        android:text="Setting"
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:inputType="textPersonName"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:id="@+id/yn"
         android:hint="Your Name" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@color/colorAccent"
         android:ems="10"
         android:id="@+id/cb"
         android:hint="Current Budget" />
@@ -39,5 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnSet"
+        android:textColor="@color/colorAccent"
+        android:background="@color/colorPrimaryDark"
+        android:layout_margin="10dp"
         android:onClick="ButtonSet"/>
 </LinearLayout>
