@@ -133,6 +133,11 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void OpenSetting(MenuItem menu){
+        Intent i = new Intent(this,Setting.class);
+        startActivity(i);
+    }
     public void showReport(MenuItem menu){
         DbTabungan db = new DbTabungan(getApplicationContext());
         db.open();
