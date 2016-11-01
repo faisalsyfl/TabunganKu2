@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">DompetQ</string>
+    <string name="app_name">SakuKu</string>
     <string name="action_settings">Settings</string>
     <string name="report">Laporan</string>
-    <string name="title_activity_welcome">DompetQ</string>
+    <string name="title_activity_welcome">SakuKu</string>
 
     <string-array name="dropdown">
         <item>Income</item>
