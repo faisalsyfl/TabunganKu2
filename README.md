@@ -1,14 +1,7 @@
-# TabunganKu
-##Android Studio Money Manager
+# SakuKu
 ### by Faisal Syaiful A, Azis Ramdhan Darojat, Ranggi Rahman, Wiwi juwita
 
-1. Unfinished Code
-  * Program can't edit current budget
-  * if edit list, price wont appear at edit text
-  * DESAIN TOTTALY SHIT
-  * "Spending Plan" feature (Soon)
+Android Studio Money Manager for manage your own money.
+This apps created for Mobile Programming task at Universitas Pendidikan Indonesia, Indonesia.
 
-2. Finished Code
-  + Add,Edit,Delete owner list
-  + Update owner's budget/wallet
-
+You can Download apk [here](https://github.com/faisalsyfl/TabunganKu2/releases/tag/v1.1), and Software Documentation Too.
